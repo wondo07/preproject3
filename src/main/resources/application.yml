@@ -1,0 +1,56 @@
+#spring:
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2
+#  datasource:
+#    url: jdbc:h2:mem:test
+#  jpa:
+#    hibernate:
+#      ddl-auto: create-drop
+#    #    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#        # Entity에 예약어가 있다면 '' 자동 추가
+#        auto_quote_keyword: true
+#
+## 디버깅 용이하게 하기 위한 로깅 레벨 수정
+#logging.level:
+#  org.hibernate.SQL: debug
+#  org:
+#    hibernate:
+#      type:
+#        descriptor:
+#          sql:
+#            org.hibernate.type.descriptor.sql.BasicBinder: trace
+#    springframework:
+#      web.servlet: debug
+#
+#spring:
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2
+#  datasource:
+#    url: jdbc:h2:mem:test
+#  jpa:
+#    hibernate:
+#      ddl-auto: create  # (1) 스키마 자동 생성
+#    show-sql: true      # (2) SQL 쿼리 출력
+#    properties:
+#      hibernate:
+#        format_sql: true  # (3) SQL pretty print
+#  sql:
+#    init:
+#      data-locations: classpath*:db/h2/data.sql
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        orm:
+#          jpa: DEBUG
+#server:
+#  servlet:
+#    encoding:
+#      force-response: true
