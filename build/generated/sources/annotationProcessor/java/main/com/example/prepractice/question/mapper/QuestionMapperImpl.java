@@ -1,0 +1,183 @@
+package com.example.prepractice.question.mapper;
+
+import com.example.prepractice.constant.QuestionStatus;
+import com.example.prepractice.constant.QuestionVoteStatus;
+import com.example.prepractice.question.dto.QuestionCommentPostDto;
+import com.example.prepractice.question.dto.QuestionCommentResponseDto;
+import com.example.prepractice.question.dto.QuestionPatchDto;
+import com.example.prepractice.question.dto.QuestionPostDto;
+import com.example.prepractice.question.dto.QuestionReponseDto;
+import com.example.prepractice.question.dto.QuestionVotePatchDto;
+import com.example.prepractice.question.dto.QuestionVotePostDto;
+import com.example.prepractice.question.dto.QuestionVoteResponseDto;
+import com.example.prepractice.question.entity.Question;
+import com.example.prepractice.question.entity.QuestionComment;
+import com.example.prepractice.question.entity.QuestionVote;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2022-12-27T12:51:06+0900",
+    comments = "version: 1.5.1.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.jar, environment: Java 17.0.3 (Eclipse Adoptium)"
+)
+@Component
+public class QuestionMapperImpl implements QuestionMapper {
+
+    @Override
+    public Question questionDtoToEntity(QuestionPostDto questionPostDto) {
+        if ( questionPostDto == null ) {
+            return null;
+        }
+
+        Question question = new Question();
+
+        question.setTitle( questionPostDto.getTitle() );
+        question.setBody( questionPostDto.getBody() );
+
+        return question;
+    }
+
+    @Override
+    public QuestionReponseDto questionEntityToDto(Question question) {
+        if ( question == null ) {
+            return null;
+        }
+
+        QuestionReponseDto questionReponseDto = new QuestionReponseDto();
+
+        questionReponseDto.setQuestionId( question.getQuestionId() );
+        questionReponseDto.setTitle( question.getTitle() );
+        questionReponseDto.setBody( question.getBody() );
+        questionReponseDto.setQuestionStatus( question.getQuestionStatus() );
+        questionReponseDto.setQuestionVotes( questionVoteListToQuestionVoteResponseDtoList( question.getQuestionVotes() ) );
+        questionReponseDto.setViewCounting( question.getViewCounting() );
+        questionReponseDto.setCreateAt( question.getCreateAt() );
+        questionReponseDto.setUpdateAt( question.getUpdateAt() );
+
+        return questionReponseDto;
+    }
+
+    @Override
+    public List<QuestionReponseDto> questionEntityListToResponseDtoList(List<Question> questionList) {
+        if ( questionList == null ) {
+            return null;
+        }
+
+        List<QuestionReponseDto> list = new ArrayList<QuestionReponseDto>( questionList.size() );
+        for ( Question question : questionList ) {
+            list.add( questionEntityToDto( question ) );
+        }
+
+        return list;
+    }
+
+    @Override
+    public Question questionPatchDtoToEntity(QuestionPatchDto questionPatchDto) {
+        if ( questionPatchDto == null ) {
+            return null;
+        }
+
+        Question question = new Question();
+
+        question.setTitle( questionPatchDto.getTitle() );
+        question.setBody( questionPatchDto.getBody() );
+        if ( questionPatchDto.getQuestionStatus() != null ) {
+            question.setQuestionStatus( Enum.valueOf( QuestionStatus.class, questionPatchDto.getQuestionStatus() ) );
+        }
+
+        return question;
+    }
+
+    @Override
+    public QuestionVote questionVotePostDtoToEntity(QuestionVotePostDto questionVotePostDto) {
+        if ( questionVotePostDto == null ) {
+            return null;
+        }
+
+        QuestionVote questionVote = new QuestionVote();
+
+        if ( questionVotePostDto.getQuestionVoteStatus() != null ) {
+            questionVote.setQuestionVoteStatus( Enum.valueOf( QuestionVoteStatus.class, questionVotePostDto.getQuestionVoteStatus() ) );
+        }
+
+        return questionVote;
+    }
+
+    @Override
+    public QuestionVoteResponseDto questionVoteEntityToResponseDto(QuestionVote questionVote) {
+        if ( questionVote == null ) {
+            return null;
+        }
+
+        QuestionVoteResponseDto questionVoteResponseDto = new QuestionVoteResponseDto();
+
+        questionVoteResponseDto.setQuestionVoteId( questionVote.getQuestionVoteId() );
+        if ( questionVote.getQuestionVoteStatus() != null ) {
+            questionVoteResponseDto.setQuestionVoteStatus( questionVote.getQuestionVoteStatus().name() );
+        }
+        questionVoteResponseDto.setCreateAt( questionVote.getCreateAt() );
+        questionVoteResponseDto.setUpdateAt( questionVote.getUpdateAt() );
+
+        return questionVoteResponseDto;
+    }
+
+    @Override
+    public QuestionVote questionVotePatchDtoToEntity(QuestionVotePatchDto questionVotePatchDto) {
+        if ( questionVotePatchDto == null ) {
+            return null;
+        }
+
+        QuestionVote questionVote = new QuestionVote();
+
+        if ( questionVotePatchDto.getQuestionVoteStatus() != null ) {
+            questionVote.setQuestionVoteStatus( Enum.valueOf( QuestionVoteStatus.class, questionVotePatchDto.getQuestionVoteStatus() ) );
+        }
+
+        return questionVote;
+    }
+
+    @Override
+    public QuestionComment questionCommentPostDtoToEntity(QuestionCommentPostDto questionCommentPostDto) {
+        if ( questionCommentPostDto == null ) {
+            return null;
+        }
+
+        QuestionComment questionComment = new QuestionComment();
+
+        questionComment.setComment( questionCommentPostDto.getComment() );
+
+        return questionComment;
+    }
+
+    @Override
+    public QuestionCommentResponseDto questionCommentEntityToReponseDto(QuestionComment questionComment) {
+        if ( questionComment == null ) {
+            return null;
+        }
+
+        QuestionCommentResponseDto questionCommentResponseDto = new QuestionCommentResponseDto();
+
+        questionCommentResponseDto.setQuestionCommentId( questionComment.getQuestionCommentId() );
+        questionCommentResponseDto.setComment( questionComment.getComment() );
+        questionCommentResponseDto.setCreateAt( questionComment.getCreateAt() );
+        questionCommentResponseDto.setUpdateAt( questionComment.getUpdateAt() );
+
+        return questionCommentResponseDto;
+    }
+
+    protected List<QuestionVoteResponseDto> questionVoteListToQuestionVoteResponseDtoList(List<QuestionVote> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<QuestionVoteResponseDto> list1 = new ArrayList<QuestionVoteResponseDto>( list.size() );
+        for ( QuestionVote questionVote : list ) {
+            list1.add( questionVoteEntityToResponseDto( questionVote ) );
+        }
+
+        return list1;
+    }
+}
