@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
         @Index(columnList = "updateAt")
 })
 @EntityListeners(AuditingEntityListener.class)
-@Entity
+@Entity(name = "QUESTION_VOTE")
 @NoArgsConstructor
 public class QuestionVote {
 

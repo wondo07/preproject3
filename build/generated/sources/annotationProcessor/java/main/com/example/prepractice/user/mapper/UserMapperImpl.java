@@ -1,0 +1,120 @@
+package com.example.prepractice.user.mapper;
+
+import com.example.prepractice.question.dto.QuestionReponseDto;
+import com.example.prepractice.question.dto.QuestionVoteResponseDto;
+import com.example.prepractice.question.entity.Question;
+import com.example.prepractice.question.entity.QuestionVote;
+import com.example.prepractice.user.dto.UserPatchDto;
+import com.example.prepractice.user.dto.UserResponseDto;
+import com.example.prepractice.user.entity.User;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2022-12-27T12:51:06+0900",
+    comments = "version: 1.5.1.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.jar, environment: Java 17.0.3 (Eclipse Adoptium)"
+)
+@Component
+public class UserMapperImpl implements UserMapper {
+
+    @Override
+    public UserResponseDto UserEntityToReponseDto(User save) {
+        if ( save == null ) {
+            return null;
+        }
+
+        UserResponseDto userResponseDto = new UserResponseDto();
+
+        userResponseDto.setUserId( save.getUserId() );
+        userResponseDto.setEmail( save.getEmail() );
+        userResponseDto.setPassword( save.getPassword() );
+        userResponseDto.setDisplayName( save.getDisplayName() );
+        userResponseDto.setEmailNotice( save.isEmailNotice() );
+        userResponseDto.setUserStatus( save.getUserStatus() );
+        userResponseDto.setLoginType( save.getLoginType() );
+        userResponseDto.setCreateAt( save.getCreateAt() );
+        userResponseDto.setUpdateAt( save.getUpdateAt() );
+        userResponseDto.setQuestions( questionListToQuestionReponseDtoList( save.getQuestions() ) );
+
+        return userResponseDto;
+    }
+
+    @Override
+    public User UserPatchDtoToEntity(UserPatchDto userPatchDto) {
+        if ( userPatchDto == null ) {
+            return null;
+        }
+
+        User user = new User();
+
+        user.setPassword( userPatchDto.getPassword() );
+        user.setDisplayName( userPatchDto.getDisplayName() );
+
+        return user;
+    }
+
+    protected QuestionVoteResponseDto questionVoteToQuestionVoteResponseDto(QuestionVote questionVote) {
+        if ( questionVote == null ) {
+            return null;
+        }
+
+        QuestionVoteResponseDto questionVoteResponseDto = new QuestionVoteResponseDto();
+
+        questionVoteResponseDto.setQuestionVoteId( questionVote.getQuestionVoteId() );
+        if ( questionVote.getQuestionVoteStatus() != null ) {
+            questionVoteResponseDto.setQuestionVoteStatus( questionVote.getQuestionVoteStatus().name() );
+        }
+        questionVoteResponseDto.setCreateAt( questionVote.getCreateAt() );
+        questionVoteResponseDto.setUpdateAt( questionVote.getUpdateAt() );
+
+        return questionVoteResponseDto;
+    }
+
+    protected List<QuestionVoteResponseDto> questionVoteListToQuestionVoteResponseDtoList(List<QuestionVote> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<QuestionVoteResponseDto> list1 = new ArrayList<QuestionVoteResponseDto>( list.size() );
+        for ( QuestionVote questionVote : list ) {
+            list1.add( questionVoteToQuestionVoteResponseDto( questionVote ) );
+        }
+
+        return list1;
+    }
+
+    protected QuestionReponseDto questionToQuestionReponseDto(Question question) {
+        if ( question == null ) {
+            return null;
+        }
+
+        QuestionReponseDto questionReponseDto = new QuestionReponseDto();
+
+        questionReponseDto.setQuestionId( question.getQuestionId() );
+        questionReponseDto.setTitle( question.getTitle() );
+        questionReponseDto.setBody( question.getBody() );
+        questionReponseDto.setQuestionStatus( question.getQuestionStatus() );
+        questionReponseDto.setQuestionVotes( questionVoteListToQuestionVoteResponseDtoList( question.getQuestionVotes() ) );
+        questionReponseDto.setViewCounting( question.getViewCounting() );
+        questionReponseDto.setCreateAt( question.getCreateAt() );
+        questionReponseDto.setUpdateAt( question.getUpdateAt() );
+
+        return questionReponseDto;
+    }
+
+    protected List<QuestionReponseDto> questionListToQuestionReponseDtoList(List<Question> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<QuestionReponseDto> list1 = new ArrayList<QuestionReponseDto>( list.size() );
+        for ( Question question : list ) {
+            list1.add( questionToQuestionReponseDto( question ) );
+        }
+
+        return list1;
+    }
+}

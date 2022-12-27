@@ -21,7 +21,7 @@ import java.util.Optional;
         @Index(columnList = "updateAt")
 })
 @EntityListeners(AuditingEntityListener.class)
-@Entity
+@Entity(name="QUESTION_COMMENT")
 @NoArgsConstructor
 public class QuestionComment {
 

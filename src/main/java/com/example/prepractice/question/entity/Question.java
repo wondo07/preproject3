@@ -21,9 +21,9 @@ import java.util.List;
 @Table(indexes = {
         @Index(columnList = "createAt"),
         @Index(columnList = "updateAt")
-}, name = "QUESTIONS")
+})
 @EntityListeners(AuditingEntityListener.class)
-@Entity
+@Entity(name = "QUESTIONS")
 @NoArgsConstructor
 public class Question {
 
